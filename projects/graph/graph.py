@@ -1,9 +1,12 @@
 """
 Simple graph implementation
 """
-from util import Stack, Queue  # These may come in handy
+#from util import Stack, Queue  # These may come in handy
+from collections import deque
 
 class Graph:
+
+
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
@@ -35,6 +38,16 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
+        visited = set()
+        queue = deque()
+        queue.append(starting_vertex)
+        while len(queue) > 0:
+            currNode = queue.popleft()
+            if currNode not in visited:
+                visited.add(currNode)
+                print(currNode)
+                for neighbor in self.get_neighbors(currNode):
+                    queue.append(neighbor)
         
         pass  # TODO
 
@@ -43,6 +56,18 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
+        visited = set()
+        stack = deque()
+        stack.append(starting_vertex)
+        while len(stack) > 0:
+            currNode = stack.pop()
+            if currNode not in visited:
+                visited.add(currNode)
+                print(currNode)
+                # push all neighbors onto stack
+                for neighbor in self.vertices[currNode]:
+                    stack.append(neighbor)
+
         pass  # TODO
 
     def dft_recursive(self, starting_vertex):
